@@ -1,5 +1,1 @@
 # 29TH OF JUNE 2025 PROGRESS
-
-- A
-- B
-- C
