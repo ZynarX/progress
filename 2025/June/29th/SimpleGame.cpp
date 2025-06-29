@@ -13,7 +13,7 @@ struct Player
 	bool move_left         =  false;
 	float xPos             =  50.0f; // Player starting X position
 	float yPos             =  50.0f; // Player starting Y position
-	float MAX_SPEED	       =  150.0f; // Player Max Speed
+	const float MAX_SPEED  =  150.0f; // Player Max Speed
 	int   WIDTH            =  75.0f; // Player rectangle width
 	int   HEIGHT           =  75.0f; // Player rectangle height
 };
@@ -26,7 +26,7 @@ struct Entity
 	bool move_left         =  false;
 	float xPos             =  50.0f; // Entity starting X position
 	float yPos             =  150.0f; // Entity starting Y position
-	float MAX_SPEED        =  50.0f; // Entity Max Speed
+	const float MAX_SPEED  =  50.0f; // Entity Max Speed
 	int   WIDTH            =  50.0f; // Entity rectangle width
 	int   HEIGHT           =  50.0f; // Entity rectangle height
 };
