@@ -2,33 +2,33 @@
 #include <iostream>
 #include <SDL.h>
 
-#define FIXED_TIME_STEP 1.0f / 60.0f
-#define FRAME_DELAY 1000 / 60
+constexpr float FIXED_TIME_STEP = 1.0f / 60.0f;
+constexpr float FRAME_DELAY = 1000 / 60;
 
 struct Player
 {
-	bool move_up           =  false;
-	bool move_down         =  false;
-	bool move_right        =  false;
-	bool move_left         =  false;
-	float xPos             =  50.0f; // Player starting X position
-	float yPos             =  50.0f; // Player starting Y position
-	const float MAX_SPEED  =  150.0f; // Player Max Speed
-	int   WIDTH            =  75.0f; // Player rectangle width
-	int   HEIGHT           =  75.0f; // Player rectangle height
+	bool move_up = false;
+	bool move_down = false;
+	bool move_right = false;
+	bool move_left = false;
+	float xPos = 50.0f; // Player starting X position
+	float yPos = 50.0f; // Player starting Y position
+	const float MAX_SPEED = 150.0f; // Player Max Speed
+	int WIDTH = 75.0f; // Player rectangle width
+	int HEIGHT = 75.0f; // Player rectangle height
 };
 
 struct Entity
 {
-	bool move_up           =  false;
-	bool move_down         =  false;
-	bool move_right        =  false;
-	bool move_left         =  false;
-	float xPos             =  50.0f; // Entity starting X position
-	float yPos             =  150.0f; // Entity starting Y position
-	const float MAX_SPEED  =  50.0f; // Entity Max Speed
-	int   WIDTH            =  50.0f; // Entity rectangle width
-	int   HEIGHT           =  50.0f; // Entity rectangle height
+	bool move_up = false;
+	bool move_down = false;
+	bool move_right = false;
+	bool move_left = false;
+	float xPos = 50.0f; // Entity starting X position
+	float yPos = 150.0f; // Entity starting Y position
+	const float MAX_SPEED = 50.0f; // Entity Max Speed
+	int WIDTH = 50.0f; // Entity rectangle width
+	int HEIGHT = 50.0f; // Entity rectangle height
 };
 
 void handle_input(SDL_Event& event, bool& is_running, Player& player);
