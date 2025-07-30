@@ -153,8 +153,9 @@ public:
         for(size_t i = 0; i < this->inventory.size(); i++)
         {
             delete this->inventory[i];
-            this->inventory.erase(this->inventory.begin() + i);
         }
+
+        this->inventory.clear();
     }
     std::vector<Item*> GetInventory()
     {
