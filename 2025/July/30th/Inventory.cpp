@@ -23,6 +23,20 @@ public:
     }
 };
 
+class ParseError : public std::exception
+{
+private:
+    std::string message;
+public:
+    ParseError(const std::string& msg) : message(msg) {}
+    ParseError(const char* msg) : message(std::string(msg)) {}
+
+    const char* what() const noexcept override
+    {
+        return this->message.c_str();
+    }
+};
+
 class ItemError : public std::exception
 {
 private:
@@ -320,9 +334,9 @@ void SaveToFile(const std::string& filename, Inventory& inventory)
 
     for (Item* item : inventoryItems)
     {
-        outFile << std::setw(15) << std::left << item->GetType()
-                << std::setw(20) << std::left << item->GetName()
-                << std::setw(10) << std::left << item->GetQuantity()
+        outFile << item->GetType()
+                << ',' << item->GetName()
+                << ',' << item->GetQuantity()
                 << '\n';
     }
 
@@ -336,33 +350,43 @@ void LoadFromFile(const std::string& filename, Inventory& inventory)
     {
         throw FileError("Couldn't open file to load!");
     }
-
-    std::string line;
-
-    while(std::getline(inFile, line))
+    
+    try
     {
-        Item* item;
+        std::string line;
 
-        std::istringstream iss(line);
-
-        std::string type;
-        std::string name;
-        int quantity;
-
-        if(!(iss >> std::setw(15) >> type >> std::setw(20) >> name >> std::setw(10) >> quantity))
+        while(std::getline(inFile, line))
         {
-            throw FileError("Couldn't read line!");
-        }
+            Item* item;
 
-        if (type == "Book")
-        {
-            item = new Book(name, quantity);
-        }
-        else if (type == "Electronics")
-        {
-            item = new Electronics(name, quantity);
-        }
+            std::istringstream iss(line);
 
-        inventory.Add(item);
+            std::string type;
+            std::string name;
+            int quantity;
+
+            std::getline(iss, type, ',');
+            std::getline(iss, name, ',');
+
+            if(!(iss >> quantity))
+            {
+                throw ParseError("Failed to set quantity!");
+            }
+
+            if (type == "Book")
+            {
+                item = new Book(name, quantity);
+            }
+            else if (type == "Electronics")
+            {
+                item = new Electronics(name, quantity);
+            }
+
+            inventory.Add(item);
+        }
+    }
+    catch(const ParseError& e)
+    {
+        std::cerr << "Parse Error: " << e.what() << '\n';
     }
 }
